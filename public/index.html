@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MASTER PRINTER - Enterprise Web Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0A0D14;
+      --bg-card: #121826;
+      --bg-card-hover: #1A2236;
+      --gold-primary: #F59E0B;
+      --gold-light: #FDE68A;
+      --gold-gradient: linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%);
+      --accent-blue: #3B82F6;
+      --accent-green: #10B981;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-color: rgba(245, 158, 11, 0.25);
+      --border-glow: 0 0 20px rgba(245, 158, 11, 0.15);
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
+    }
+
+    /* Navigation Header */
+    header {
+      background: rgba(18, 24, 38, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--gold-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 20px;
+      color: #0F172A;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 1px;
+      color: var(--gold-light);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--gold-primary);
+    }
+
+    .btn-action {
+      background: var(--gold-gradient);
+      color: #0F172A;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 40px 0 60px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 6px 16px;
+      border-radius: 999px;
+      color: var(--gold-primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 span {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+
+    /* Routing Logic Demonstration Section */
+    .routing-showcase {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--border-glow);
+      margin-bottom: 48px;
+    }
+
+    .routing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .routing-header h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .express-tag {
+      background: #2563EB;
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .route-input-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .route-input {
+      flex: 1;
+      background: rgba(10, 13, 20, 0.8);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--text-main);
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .route-input:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+    }
+
+    .quick-routes {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      align-items: center;
+    }
+
+    .quick-routes span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+
+    .route-chip {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .route-chip:hover {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: var(--gold-primary);
+      color: var(--gold-light);
+    }
+
+    /* Step-by-Step Resolution Pipeline */
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .step-card {
+      background: rgba(10, 13, 20, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 18px;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .step-card.active-check {
+      border-color: var(--gold-primary);
+      background: rgba(245, 158, 11, 0.08);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+    }
+
+    .step-card.resolved {
+      border-color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.1);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    }
+
+    .step-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .step-card.resolved .step-badge {
+      color: var(--accent-green);
+    }
+
+    .step-title {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      word-break: break-all;
+    }
+
+    .step-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-match {
+      color: var(--accent-green);
+    }
+
+    .status-skip {
+      color: var(--text-muted);
+    }
+
+    /* Live Frame / Resolution Result */
+    .result-console {
+      background: #080B10;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .console-bar {
+      background: #151C2C;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .console-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #EF4444; }
+    .dot-yellow { background: #F59E0B; }
+    .dot-green { background: #10B981; }
+
+    .console-body {
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .log-line {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .log-time {
+      color: #64748B;
+      user-select: none;
+    }
+
+    .log-success { color: var(--accent-green); }
+    .log-warn { color: var(--gold-primary); }
+    .log-info { color: var(--accent-blue); }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 28px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-color);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(245, 158, 11, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--gold-primary);
+      margin-bottom: 18px;
+    }
+
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: var(--gold-primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header>
+    <div class="nav-container">
+      <a href="/" class="brand">
+        <div class="brand-logo">K</div>
+        <div class="brand-title">MASTER PRINTER</div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="javascript:void(0)" onclick="resolveRoute('/example/')">Example Route</a></li>
+        <li><a href="javascript:void(0)" onclick="resolveRoute('/cloud/')">Cloud Files</a></li>
+        <li><a href="javascript:void(0)" onclick="resolveRoute('/kiosk/')">Kiosk</a></li>
+      </ul>
+      <a href="https://ais-pre-jvm4p4evnzcnooorrqzmzu-449753653790.asia-southeast1.run.app" class="btn-action" target="_blank">
+        <span>Launch App</span> &rarr;
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-badge">⚡ Production Static Router & Web Portal</div>
+      <h1>Enterprise <span>Master Printer</span> Architecture</h1>
+      <p>
+        Unified printing ecosystem powered by high-concurrency cloud sync, autonomous kiosks, and standard HTTP directory index routing.
+      </p>
+    </section>
+
+    <!-- Express Static Routing Logic Interactive Pipeline -->
+    <section class="routing-showcase">
+      <div class="routing-header">
+        <div>
+          <h2>
+            <span>🔀</span> URL Route Resolution Engine
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">
+            Matches Express <code style="color: var(--gold-light); font-family: var(--font-mono);">express.static('public', { extensions: ['html'], index: ['index.html', 'home.html'] })</code>
+          </p>
+        </div>
+        <span class="express-tag">Express Static Standard</span>
+      </div>
+
+      <!-- Live Route Input Bar -->
+      <div class="route-input-group">
+        <input 
+          type="text" 
+          id="routeInput" 
+          class="route-input" 
+          value="/example/" 
+          placeholder="Type any route path e.g. /example/, /kiosk, /home..."
+          onkeydown="if(event.key === 'Enter') runResolution()"
+        />
+        <button class="btn-action" onclick="runResolution()">
+          Test Route
+        </button>
+      </div>
+
+      <!-- Quick Route Selector -->
+      <div class="quick-routes">
+        <span>Quick Samples:</span>
+        <button class="route-chip" onclick="resolveRoute('/example/')">/example/</button>
+        <button class="route-chip" onclick="resolveRoute('/example')">/example</button>
+        <button class="route-chip" onclick="resolveRoute('/kiosk/')">/kiosk/</button>
+        <button class="route-chip" onclick="resolveRoute('/')">/</button>
+        <button class="route-chip" onclick="resolveRoute('/admin')">/admin</button>
+        <button class="route-chip" onclick="resolveRoute('/orders/summary')">/orders/summary</button>
+      </div>
+
+      <!-- Step-by-Step Resolution Sequence -->
+      <div class="pipeline">
+        <!-- Step 1: Directory index.html -->
+        <div class="step-card" id="step1">
+          <span class="step-badge">Priority 1 • Index File</span>
+          <div class="step-title" id="step1Target">/example/index.html</div>
+          <div class="step-desc">Checks primary directory index inside the target folder.</div>
+          <div class="status-indicator" id="step1Status">
+            <span class="status-skip">Waiting...</span>
+          </div>
+        </div>
+
+        <!-- Step 2: Extensionless .html -->
+        <div class="step-card" id="step2">
+          <span class="step-badge">Priority 2 • Clean URL</span>
+          <div class="step-title" id="step2Target">/example.html</div>
+          <div class="step-desc">Checks extensionless fallback via extensions: ['html'].</div>
+          <div class="status-indicator" id="step2Status">
+            <span class="status-skip">Waiting...</span>
+          </div>
+        </div>
+
+        <!-- Step 3: Alternative home.html -->
+        <div class="step-card" id="step3">
+          <span class="step-badge">Priority 3 • Alternate Home</span>
+          <div class="step-title" id="step3Target">/example/home.html</div>
+          <div class="step-desc">Checks secondary directory index specified in index array.</div>
+          <div class="status-indicator" id="step3Status">
+            <span class="status-skip">Waiting...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Console Log -->
+      <div class="result-console">
+        <div class="console-bar">
+          <div class="console-dots">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+          </div>
+          <div id="consoleStatusText" style="color: var(--text-muted);">HTTP 200 Ready</div>
+        </div>
+        <div class="console-body" id="consoleLogs">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform Modules Grid -->
+    <section class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🖨️</div>
+        <h3>High-Speed Kiosk Printing</h3>
+        <p>Instant file drop, tokenized job dispatch, and automated thermal / offset production routing with real-time queue synchronization.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">☁️</div>
+        <h3>Cloud Public Files</h3>
+        <p>Zero-configuration cloud file repository with automatic 4-digit PIN generation, short URLs, and direct QR code kiosk pickup.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👑</div>
+        <h3>Royal KCrest Authentication</h3>
+        <p>Role-based multi-portal control covering Super Admin, Shop Operator, Counter Staff, and Customer Self-Service.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 MASTER PRINTER &bull; Built with Jetpack Compose, Express Static Routing Architecture & Firebase Cloud</p>
+  </footer>
+
+  <!-- Routing Engine Script -->
+  <script>
+    // Simulated Static File Registry matching the project's static routes
+    const virtualFileSystem = new Set([
+      '/',
+      '/index.html',
+      '/home.html',
+      '/example/index.html',
+      '/example.html',
+      '/example/home.html',
+      '/kiosk.html',
+      '/kiosk/index.html',
+      '/admin.html',
+      '/cloud/index.html'
+    ]);
+
+    function logMessage(text, type = 'info') {
+      const logs = document.getElementById('consoleLogs');
+      const now = new Date().toTimeString().split(' ')[0];
+      const line = document.createElement('div');
+      line.className = 'log-line';
+      
+      let typeClass = 'log-info';
+      let icon = 'ℹ️';
+      if (type === 'success') { typeClass = 'log-success'; icon = '✅'; }
+      if (type === 'warn') { typeClass = 'log-warn'; icon = '⚠️'; }
+      if (type === 'skip') { typeClass = 'log-time'; icon = '⏭️'; }
+
+      line.innerHTML = `
+        <span class="log-time">[${now}]</span>
+        <span class="${typeClass}">${icon} ${text}</span>
+      `;
+      logs.appendChild(line);
+      logs.scrollTop = logs.scrollHeight;
+    }
+
+    function resetPipeline(c1, c2, c3) {
+      document.getElementById('step1Target').textContent = c1;
+      document.getElementById('step2Target').textContent = c2;
+      document.getElementById('step3Target').textContent = c3;
+
+      ['step1', 'step2', 'step3'].forEach(id => {
+        const el = document.getElementById(id);
+        el.className = 'step-card';
+      });
+
+      document.getElementById('step1Status').innerHTML = '<span class="status-skip">Evaluating...</span>';
+      document.getElementById('step2Status').innerHTML = '<span class="status-skip">Queued...</span>';
+      document.getElementById('step3Status').innerHTML = '<span class="status-skip">Queued...</span>';
+    }
+
+    /**
+     * Exact Express static resolution algorithm:
+     * Options:
+     *   extensions: ['html']
+     *   index: ['index.html', 'home.html']
+     */
+    function resolveRoute(rawRoute) {
+      document.getElementById('routeInput').value = rawRoute;
+      runResolution();
+    }
+
+    function runResolution() {
+      const raw = document.getElementById('routeInput').value.trim() || '/';
+      const clean = raw.startsWith('/') ? raw : '/' + raw;
+      
+      // Normalized path without trailing slash for extension check
+      const withoutTrailing = clean.replace(/\/+$/, '');
+      const withTrailing = withoutTrailing ? withoutTrailing + '/' : '/';
+
+      // 1. Candidate 1: ${withTrailing}index.html
+      const candidate1 = (clean === '/' || clean.endsWith('/')) 
+        ? `${withTrailing}index.html` 
+        : `${clean}/index.html`;
+
+      // 2. Candidate 2: ${withoutTrailing}.html (from extensions: ['html'])
+      const candidate2 = withoutTrailing ? `${withoutTrailing}.html` : '/index.html';
+
+      // 3. Candidate 3: ${withTrailing}home.html (from index: [..., 'home.html'])
+      const candidate3 = (clean === '/' || clean.endsWith('/')) 
+        ? `${withTrailing}home.html` 
+        : `${clean}/home.html`;
+
+      resetPipeline(candidate1, candidate2, candidate3);
+
+      const logs = document.getElementById('consoleLogs');
+      logs.innerHTML = '';
+      logMessage(`Incoming HTTP GET request for URL: "${clean}"`, 'info');
+      logMessage(`Express Static middleware triggered: options={ extensions: ['html'], index: ['index.html', 'home.html'] }`, 'info');
+
+      // Step 1 evaluation
+      setTimeout(() => {
+        document.getElementById('step1').classList.add('active-check');
+        logMessage(`Checking Priority 1: "${candidate1}"...`, 'info');
+
+        if (virtualFileSystem.has(candidate1)) {
+          document.getElementById('step1').classList.add('resolved');
+          document.getElementById('step1Status').innerHTML = '<span class="status-match">MATCH FOUND (200 OK)</span>';
+          document.getElementById('consoleStatusText').innerHTML = `<span style="color: #10B981;">HTTP 200 OK &bull; Served ${candidate1}</span>`;
+          logMessage(`File found at "${candidate1}"! Serving with Content-Type: text/html.`, 'success');
+          return;
+        } else {
+          document.getElementById('step1Status').innerHTML = '<span class="status-skip">Not found &rarr; Next</span>';
+          logMessage(`Candidate 1 "${candidate1}" not found. Proceeding to clean URL extension check.`, 'skip');
+        }
+
+        // Step 2 evaluation
+        setTimeout(() => {
+          document.getElementById('step2').classList.add('active-check');
+          logMessage(`Checking Priority 2 (Extension fallback): "${candidate2}"...`, 'info');
+
+          if (virtualFileSystem.has(candidate2)) {
+            document.getElementById('step2').classList.add('resolved');
+            document.getElementById('step2Status').innerHTML = '<span class="status-match">MATCH FOUND (200 OK)</span>';
+            document.getElementById('consoleStatusText').innerHTML = `<span style="color: #10B981;">HTTP 200 OK &bull; Served ${candidate2}</span>`;
+            logMessage(`File found at "${candidate2}"! Clean URL match served with Content-Type: text/html.`, 'success');
+            return;
+          } else {
+            document.getElementById('step2Status').innerHTML = '<span class="status-skip">Not found &rarr; Next</span>';
+            logMessage(`Candidate 2 "${candidate2}" not found. Proceeding to alternative home index check.`, 'skip');
+          }
+
+          // Step 3 evaluation
+          setTimeout(() => {
+            document.getElementById('step3').classList.add('active-check');
+            logMessage(`Checking Priority 3 (Alternate home): "${candidate3}"...`, 'info');
+
+            if (virtualFileSystem.has(candidate3)) {
+              document.getElementById('step3').classList.add('resolved');
+              document.getElementById('step3Status').innerHTML = '<span class="status-match">MATCH FOUND (200 OK)</span>';
+              document.getElementById('consoleStatusText').innerHTML = `<span style="color: #10B981;">HTTP 200 OK &bull; Served ${candidate3}</span>`;
+              logMessage(`File found at "${candidate3}"! Secondary home document served with Content-Type: text/html.`, 'success');
+            } else {
+              document.getElementById('step3Status').innerHTML = '<span class="status-skip">Not found (404)</span>';
+              document.getElementById('consoleStatusText').innerHTML = `<span style="color: #EF4444;">HTTP 404 Not Found</span>`;
+              logMessage(`No file match found for route candidates. Passing to next middleware or 404 handler.`, 'warn');
+            }
+          }, 350);
+        }, 350);
+      }, 350);
+    }
+
+    // Run resolution on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      runResolution();
+    });
+  </script>
+</body>
+</html>

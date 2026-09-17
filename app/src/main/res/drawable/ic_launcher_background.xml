@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Sophisticated Deep Navy to Royal Blue gradient -->
+    <path
+        android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="108"
+                android:endY="108"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#0B192C" />
+                <item android:offset="0.5" android:color="#1E3E62" />
+                <item android:offset="1.0" android:color="#0066FF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Subtle high-tech geometric accents -->
+    <path
+        android:strokeColor="#26FFFFFF"
+        android:strokeWidth="1.2"
+        android:pathData="M18,30 L90,30 M18,54 L90,54 M18,78 L90,78 M36,18 L36,90 M72,18 L72,90" />
+    <path
+        android:fillColor="#15FFFFFF"
+        android:pathData="M54,14 L94,54 L54,94 L14,54 Z" />
+</vector>
